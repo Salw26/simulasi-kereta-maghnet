@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Simulasi Kereta Magnet</title>
+<style>
+/* ===== HALAMAN AWAL ===== */
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background-color: #071c31;
+    color: white;
+}
+
+/* HALAMAN AWAL */
+#halamanAwal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+#halamanAwal h1{
+    color: #1e90ff;
+    font-size: 36px;
+}
+
+.kotak{
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+.kotak p{
+    font-size: 16px;
+}
+
+#simulasiBtn{
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #38bdf8;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#simulasiBtn:hover{
+    color: #22d3ee;
+    transform: scale(1.1);
+}
+
+/* ===== HALAMAN SIMULASI ===== */
+#halamanSimulasi{
+    display: none;
+    padding-top: 20px;
+    text-align: center;
+    background: linear-gradient(#071c31, #0f172a);
+    min-height: 100vh;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* HEADER SIMULASI */
+.header{
+  background:#002855;
+  color:white;
+  padding:15px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+}
+
+/* PANEL KONTROL */
+.panel{
+  background:white;
+  color:black;
+  width:80%;
+  margin:0 auto 20px auto;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.25);
+  text-align: left;
+}
+
+.control{
+  margin:15px 0;
+}
+
+input[type=range]{
+  width:60%;
+}
+
+.status{
+  font-size:18px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.rumus{
+  margin-top:20px;
+  font-size:16px;
+  background:#f2f2f2;
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:10px;
+}
+
+/* TRACK & KERETA */
+.simulasi-box{
+  margin-top:30px;
+  position: relative;
+  height:250px;
+}
+
+/* Rel biru transparan */
+.track{
+  width:85%;
+  height:12px;
+  background: rgba(56,189,248,0.6);
+  margin:180px auto 0;
+  border-radius:6px;
+  position: relative;
+  box-shadow:0 0 10px rgba(56,189,248,0.7);
+}
+
+/* KERETA */
+.kereta{
+  position:absolute;
+  left:0;
+  display:flex;
+  animation:majuMundur 6s ease-in-out infinite alternate;
+  filter: drop-shadow(0 10px 15px rgba(0, 255, 255, 0.4));
+}
+
+/* LOKOMOTIF */
+.lokomotif{
+  width:150px;
+  height:65px;
+  background: linear-gradient(to right, #ff4d4d, #d40000);
+  border-radius:18px 30px 30px 18px;
+  position:relative;
+}
+
+.window{
+  width:26px;
+  height:20px;
+  background:#e6f2ff;
+  border-radius:5px;
+  position:absolute;
+  top:18px;
+}
+.w1{ left:25px;}
+.w2{ left:60px;}
+.w3{ left:95px;}
+
+.lampu{
+  width:14px;
+  height:14px;
+  background:yellow;
+  border-radius:50%;
+  position:absolute;
+  right:8px;
+  top:26px;
+}
+
+/* GERBONG */
+.gerbong{
+  width:120px;
+  height:60px;
+  background: linear-gradient(to right, #b30000, #800000);
+  margin-left:12px;
+  border-radius:14px;
+}
+
+/* MAGNET GLOW */
+.magnet{
+  width:22px;
+  height:22px;
+  background:blue;
+  border-radius:50%;
+  position:absolute;
+  bottom:-28px;
+  color:white;
+  font-size:12px;
+  line-height:22px;
+  box-shadow:0 0 15px cyan, 0 0 25px cyan;
+}
+.m1{ left:25px;}
+.m2{ right:25px;}
+
+@keyframes majuMundur{
+  from{ left:0;}
+  to{ left:calc(100% - 300px);}
+}
+</style>
+</head>
+<body>
+
+<!-- HALAMAN AWAL -->
+<div id="halamanAwal">
+    <h1>Pemanfaatan Medan Elektro Magnetik pada Kereta Maglev</h1>
+    <div class="kotak">
+        <p> Peningkatan jumlah penduduk dan kendaraan pribadi di berbagai negara menimbulkan permasalahan transportasi darat, seperti kemacetan dan pencemaran udara akibat emisi gas CO₂. Kondisi ini terjadi karena pertumbuhan sarana transportasi tidak seimbang dengan ketersediaan infrastruktur jalan.
+          Salah satu solusi yang efektif adalah penyediaan transportasi massal yang aman, nyaman, dan terjangkau, yaitu kereta api. Seiring perkembangan teknologi, kereta api kini dikembangkan dengan sistem Magnet Levitation (Maglev) yang memanfaatkan gaya magnet untuk melayang di atas rel. Teknologi ini diharapkan mampu meningkatkan efisiensi transportasi serta mengurangi polusi dan ketergantungan pada kendaraan pribadi.</p>
+    </div>
+    <div id="simulasiBtn">SIMULASI</div>
+</div>
+
+<!-- HALAMAN SIMULASI -->
+<div id="halamanSimulasi">
+    <div class="header">
+        <h1>Simulasi Kereta Magnet Interaktif</h1>
+    </div>
+
+    <div class="panel">
+      <div class="control">
+        <label><b>Kekuatan Magnet</b></label><br>
+        <input type="range" id="magnet" min="1" max="10" value="5">
+      </div>
+
+      <div class="control">
+        <label><b>Massa Kereta</b></label><br>
+        <input type="range" id="massa" min="1" max="10" value="5">
+      </div>
+
+      <button onclick="toggle()">Play / Pause</button>
+
+      <div class="status" id="status">Status: SETIMBANG ✅</div>
+
+      <div class="rumus">
+        ΣF = 0 → F<sub>magnet</sub> = W
+      </div>
+    </div>
+
+    <div class="simulasi-box">
+      <div class="track">
+        <div class="kereta" id="kereta">
+          <div class="lokomotif">
+            <div class="lampu"></div>
+            <div class="window w1"></div>
+            <div class="window w2"></div>
+            <div class="window w3"></div>
+            <div class="magnet m1">N</div>
+            <div class="magnet m2">N</div>
+          </div>
+          <div class="gerbong"></div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+// Pindah dari HALAMAN AWAL ke SIMULASI
+document.getElementById("simulasiBtn").onclick = function(){
+    document.getElementById("halamanAwal").style.display = "none";
+    document.getElementById("halamanSimulasi").style.display = "block";
+}
+
+// KONTROL KERETA
+let jalan = true;
+
+const kereta = document.getElementById("kereta");
+const magnet = document.getElementById("magnet");
+const massa = document.getElementById("massa");
+const status = document.getElementById("status");
+
+function update(){
+  const gayaMagnet = magnet.value;
+  const berat = massa.value;
+
+  let tinggi = -80;
+
+  if(gayaMagnet > berat){
+    tinggi = -110;
+    status.innerText = "Status: TERANGKAT ⬆️";
+  }else if(gayaMagnet < berat){
+    tinggi = -40;
+    status.innerText = "Status: JATUH ⬇️";
+  }else{
+    tinggi = -80;
+    status.innerText = "Status: SETIMBANG ✅";
+  }
+
+  kereta.style.top = tinggi + "px";
+}
+
+magnet.oninput = update;
+massa.oninput = update;
+
+function toggle(){
+  jalan = !jalan;
+  kereta.style.animationPlayState = jalan ? "running" : "paused";
+}
+
+update();
+</script>
+
+</body>
+</html>
